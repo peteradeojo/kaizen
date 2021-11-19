@@ -33,7 +33,7 @@ block content
 
 		//- Load collections
 		each collection in collections
-			.collection.row(style=`background: url('/compressed/${collection.img}') no-repeat;background-size: cover`)
+			.collection.row(style=`background: #c21500;background: -webkit-linear-gradient(to left, #ffc500, #c21500);background: linear-gradient(to left, #ffc500, #c21500);background-image: url('/compressed/${collection.img}');background-repeat: no-repeat;`)
 				.title
 					h3= collection.title
 					.story
