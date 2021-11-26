@@ -1,5 +1,8 @@
 extends ../layout/main
 
+block css-links
+	link(rel="stylesheet", href="/css/store.css")
+
 block content
 	.container
 		h1.theme Product Page
@@ -7,10 +10,10 @@ block content
 	.row
 		.col-sm-8.col-md-5 
 			.product-info
-				.gallery
-					img(src="/img/" alt="" srcset="")
-					img(src="/img/" alt="" srcset="")
-					img(src="/img/" alt="" srcset="")
+				.gallery.slider
+					img(src="/compressed/" alt="" srcset="").slide
+					img(src="/compressed/" alt="" srcset="").slide
+					img(src="/compressed/" alt="" srcset="").slide
 		.col-sm-4.col-md-7
 			.product-details
 				h2 [product name]	
