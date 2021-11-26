@@ -1,19 +1,33 @@
 extends ../layout/main
 
 block css-links
-	link(rel="stylesheet", href="/css/store.css")
+	link(rel="stylesheet" href="/css/store.css")
 
 block content
 	.container
 		h1.theme Product Page
 
 	.row
-		.col-sm-8.col-md-5 
+		.col-md-7
 			.product-info
-				.gallery.slider
-					img(src="/compressed/" alt="" srcset="").slide
-					img(src="/compressed/" alt="" srcset="").slide
-					img(src="/compressed/" alt="" srcset="").slide
-		.col-sm-4.col-md-7
+				.gallery
+					.scroller
+						.slide 
+							img(src="/compressed/IMG_2753-min.JPG" alt="")
+						.slide
+							img(src="/compressed/IMG_8827-min.JPG" alt="")
+						.slide
+							img(src="/compressed/IMG_2686retouched-removebg.png" alt="")
+						.slide
+							img(src="/compressed/IMG_2686retouched-removebg.png" alt="")
+						.slide
+							img(src="/compressed/IMG_2686retouched-removebg.png" alt="")
+					button.previous &#10094;
+					button.next &#10095;
+
+		.col-md-5
 			.product-details
 				h2 [product name]	
+
+block scripts 
+	script(src="/js/slide.js")
