@@ -12,6 +12,10 @@ module.exports = () => {
 		res.render('store/index', { title: 'Browse' });
 	});
 
+	router.get('/product/:id', (req, res) => {
+		res.render('store/product', {});
+	});
+
 	router.use((req, res) => {
 		res.status(404).render('store/404');
 	});

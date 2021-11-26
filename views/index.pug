@@ -2,6 +2,8 @@ extends layout/main
 
 block css-links 
 	link(rel="stylesheet" href="/css/index.css")
+	link(rel="stylesheet" href="/css/store.css")
+
 
 block content
 	.container.p-0
@@ -28,14 +30,21 @@ block content
 						p.title= release.title
 						p.info= release.info
 
-	.container.bg-white.mt-4
-		p.h3.center Collections
-
-		//- Load collections
-		each collection in collections
-			.collection.row(style=`background: #c21500;background: -webkit-linear-gradient(to left, #ffc500, #c21500);background: linear-gradient(to left, #ffc500, #c21500);background-image: url('/compressed/${collection.img}');background-repeat: no-repeat;`)
-				.title
-					h3= collection.title
-					.story
-						p= collection.story
-						a(href=`/collections/${collection.id}`) Browse Collection
+		h4.mt-4 Latest Wears
+		.wears 
+			a(href="/store/product/1").wear 
+				img(src="/compressed/img_8772-min-removebg-preview.png" alt="")
+				.info
+					.title Byw 1
+			.wear 
+				img(src="/compressed/img_8846-min-removebg-preview.png" alt="")
+				.info
+					.title Byw
+			.wear 
+				img(src="/compressed/img_8711-min-removebg-preview.png" alt="")
+				.info
+					.title Byw
+			.wear 
+				img(src="/compressed/img_8760-min-removebg-preview.png" alt="")
+				.info
+					.title Byw

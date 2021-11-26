@@ -67,7 +67,7 @@ const collections: Collection[] = [
 
 module.exports = (app: Express) => {
 	router.get('/', (req, res) => {
-		res.render('index', { releases, collections });
+		res.render('index', { releases });
 	});
 
 	return router;
