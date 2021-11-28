@@ -3,6 +3,8 @@ const debug = require('debug')('app:api-route');
 
 const router = express.Router();
 
+const { loadItems } = require('../midware/functions');
+
 interface Release {
 	id: string | number;
 	img: string;
@@ -69,60 +71,12 @@ module.exports = () => {
 		if (search.length < 1) {
 			return res.json({ results: [] });
 		}
-		const allRes = [
-			{
-				name: 't-shirt',
-				link: '/store/t-shirt',
-				category: ['shirt', 'top'],
-				collection: 'pilot',
-			},
-			{
-				name: 't-top',
-				link: '/store/t-top',
-				category: ['shirt', 'top'],
-				collection: 'pilot',
-			},
-			{
-				name: 'Bucket Hat',
-				link: '/store/bucket-hat',
-				category: ['hat', 'bucket-hat'],
-				collection: 'pilot',
-			},
-			{
-				name: 'Bucket Hat',
-				link: '/store/bucket-hat',
-				category: ['hat', 'bucket-hat'],
-				collection: 'pilot',
-			},
-			{
-				name: 'Bucket Hat',
-				link: '/store/bucket-hat',
-				category: ['hat', 'bucket-hat'],
-				collection: 'pilot',
-			},
-			{
-				name: 'Bucket Hat',
-				link: '/store/bucket-hat',
-				category: ['hat', 'bucket-hat'],
-				collection: 'pilot',
-			},
-			{
-				name: 'Bucket Hat',
-				link: '/store/bucket-hat',
-				category: ['hat', 'bucket-hat'],
-				collection: 'pilot',
-			},
-			{
-				name: 'Bucket Hat',
-				link: '/store/bucket-hat',
-				category: ['hat', 'bucket-hat'],
-				collection: 'pilot',
-			},
-		];
+		const { items } = loadItems();
+		console.log(items);
 		console.log(search.toLowerCase());
-		const results = allRes.filter((result) => {
+		const results = items.filter((result: any) => {
 			const cats = result.category.filter(
-				(cat) => cat.indexOf(search.toLowerCase()) > -1
+				(cat: any) => cat.indexOf(search.toLowerCase()) > -1
 			);
 			return (
 				result.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||

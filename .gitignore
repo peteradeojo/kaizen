@@ -5,3 +5,4 @@ public/img
 .vscode
 .prettierrc
 tsconfig.json
+data.json
