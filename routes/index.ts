@@ -2,13 +2,7 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 
 const router = express.Router();
 
-interface Release {
-	id: string | number;
-	img: string;
-	title: string;
-	info: string;
-	name: string;
-}
+const { loadItems } = require('../midware/functions');
 interface Collection {
 	id: string | number;
 	title: string;
@@ -16,30 +10,6 @@ interface Collection {
 	img: string;
 	story?: string;
 }
-
-const releases: Release[] = [
-	{
-		id: 1,
-		img: '/compressed/IMG_2753-min-removebg-preview.png',
-		title: 'Changes',
-		info: '\u20a65,200',
-		name: 'change-t-shirt',
-	},
-	{
-		id: 2,
-		img: '/compressed/IMG_2686retouched-removebg.png',
-		title: 'Home',
-		info: '\u20a63,600',
-		name: 'change-t-shirt',
-	},
-	{
-		id: 3,
-		img: '/compressed/IMG_2673ret-min-removebg.png',
-		title: 'Solstice',
-		info: '\u20a64,000',
-		name: 'Olympus',
-	},
-];
 
 const collections: Collection[] = [
 	{
@@ -66,8 +36,9 @@ const collections: Collection[] = [
 ];
 
 module.exports = (app: Express) => {
+	const { catalog: items }: { catalog: any[] } = loadItems();
 	router.get('/', (req, res) => {
-		res.render('index', { releases });
+		res.render('index', { releases: items.slice(0, 3) });
 	});
 
 	return router;

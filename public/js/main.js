@@ -88,8 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 
 		window.addEventListener('click', (e) => {
-			// console.log(e.path[1].tagName);
-			if (e.path[1].tagName !== 'FORM') {
+			// @ts-ignore
+			if (e.composedPath()[1].tagName !== 'FORM') {
 				resultDOMOutput.innerHTML = '';
 			}
 		});

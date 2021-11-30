@@ -6,34 +6,33 @@ const router = express.Router();
 
 const categories = ['shirts', 'tops'];
 
-const loadItems = () => {
-	try {
-		const data = readFileSync(path.resolve('./routes/data.json'), {
-			encoding: 'utf-8',
-		});
-		return JSON.parse(data);
-	} catch (err) {
-		console.log(err);
-		return [];
-	}
-};
+const { loadItems } = require('../midware/functions');
 
 module.exports = () => {
 	router.get('/', (req, res) => {
 		if (req.query.search) {
 			return res.json(req.query);
 		}
-		res.render('store/index', { title: 'Browse' });
+		res.render('store/index', { title: 'Browse', categories: [] });
+	});
+	router.get('/catalog', (req, res) => {
+		res.json(req.query);
 	});
 
-	router.get('/product/:id', (req, res) => {
-		res.render('store/product', {});
+	router.get('/product/:id', (req, res, next) => {
+		const { id } = req.params;
+		const { catalog: items }: { catalog: any[] } = loadItems();
+		const item = items.find((item) => item.id == id);
+		if (!item) {
+			return next();
+		}
+		res.render('store/product', { product: item });
 	});
 
 	router.get('/:term', async (req, res) => {
 		const { term } = req.params;
 		try {
-			const { items } = loadItems();
+			const { catalog: items }: { catalog: any[] } = loadItems();
 			const resData = items.filter(
 				(item: { name: string; category: string[] }) => {
 					if (

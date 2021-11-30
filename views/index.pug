@@ -20,15 +20,15 @@ block content
 					p.f-2 Japanese: “kai-” means “change”<br> and “-zen” means “good.”
 
 	.container.bg-white.mt-4
-		h3.center.theme Latest
+		h3.center Popular
 
 		.releases.mt-3
 			//- Load new releases
 			each release in releases
-				.col-sm-4.col-md-3.col-6.release(style=`background: tomato url('${release.img}') no-repeat;background-size: cover;background-position: 50%;`)
+				.col-sm-4.col-md-3.col-6.release(style=`background: tomato url('${release.images[0]}') no-repeat;background-size: cover;background-position: 50%;`)
 					a(href='/new-releases')
-						p.title= release.title
-						p.info= release.info
+						p.title= release.name
+						p.info= "\u20a6 " + release.price
 
 		h4.mt-4 Latest Wears
 		.wears 

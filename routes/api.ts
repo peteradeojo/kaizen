@@ -60,6 +60,7 @@ const collections: Collection[] = [
 			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod illo blanditiis recusandae suscipit soluta placeat ullam consectetur dicta officiis repellat, cupiditate, eveniet laborum quos ratione itaque fuga aliquam, autem atque?',
 	},
 ];
+const { catalog: items } = loadItems();
 
 module.exports = () => {
 	router.get('/', (req, res) => {
@@ -71,9 +72,6 @@ module.exports = () => {
 		if (search.length < 1) {
 			return res.json({ results: [] });
 		}
-		const { items } = loadItems();
-		console.log(items);
-		console.log(search.toLowerCase());
 		const results = items.filter((result: any) => {
 			const cats = result.category.filter(
 				(cat: any) => cat.indexOf(search.toLowerCase()) > -1
@@ -81,7 +79,9 @@ module.exports = () => {
 			return (
 				result.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
 				cats.length > 0 ||
-				result.collection.toLowerCase().indexOf(search.toLowerCase()) > -1
+				(result.collection
+					? result.collection.toLowerCase().indexOf(search.toLowerCase()) > -1
+					: false)
 			);
 		});
 		res.json({ results: results.slice(0, 5), search });

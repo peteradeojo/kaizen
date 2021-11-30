@@ -6,4 +6,14 @@ block css-links
 block content
   - const search_action = '/store'
   include ../components/search
+
   .container
+    each category in categories
+      .category
+        .d-flex.justify-between.align-center
+          h3 Tops & Bottoms
+          a(href="#!" style='font-size: 1.4em') Browse Category &rarr;
+        #tops-bottoms.d-flex.flex-wrap
+
+block scripts 
+  script(src="/js/store.js") 
