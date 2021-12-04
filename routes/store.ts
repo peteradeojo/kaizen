@@ -4,16 +4,18 @@ import path from 'path';
 
 const router = express.Router();
 
-const categories = ['shirts', 'tops'];
+// const categories = ['shirts', 'tops'];
 
 const { loadItems } = require('../midware/functions');
+import Category from '../models/categories';
 
 module.exports = () => {
-	router.get('/', (req, res) => {
+	router.get('/', async (req, res) => {
+		const categories = await Category.find();
 		if (req.query.search) {
 			return res.json(req.query);
 		}
-		res.render('store/index', { title: 'Browse', categories: [] });
+		res.render('store/index', { title: 'Browse', categories });
 	});
 	router.get('/catalog', (req, res) => {
 		res.json(req.query);

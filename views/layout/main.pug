@@ -6,9 +6,9 @@ html(lang="en")
 		meta(name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1")
 		link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css' integrity='sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==' crossorigin='anonymous' referrerpolicy='no-referrer')
 		link(href='https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@1,300;1,400;1,700&family=Montserrat:wght@100;200;300;400;500;700&family=Shalimar&family=Yuji+Boku&display=swap' rel='stylesheet')
-		link(rel="stylesheet" href="/css/global.css")
-		link(rel="stylesheet" href="/css/nav.css")
 		block css-links
+		link(rel="stylesheet" href="/css/nav.css")
+		link(rel="stylesheet" href="/css/global.css")
 		title= title || 'KAIZEN'
 	body 
 		header
@@ -20,13 +20,13 @@ html(lang="en")
 						include ../components/nav
 		main 
 			block content
-		
+
 		footer 
 			.container 
 				.bg-white.pt-2 
 					p.center(style="font-size: 14px") Copyright &copy;2021 <span class='theme'>KAIZEN</span>&trade;
 
-		
+
 
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js' integrity='sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw==' crossorigin='anonymous' referrerpolicy='no-referrer')  
 		script(src="/js/main.js") 
