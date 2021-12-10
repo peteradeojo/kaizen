@@ -60,11 +60,11 @@ const collections: Collection[] = [
 			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod illo blanditiis recusandae suscipit soluta placeat ullam consectetur dicta officiis repellat, cupiditate, eveniet laborum quos ratione itaque fuga aliquam, autem atque?',
 	},
 ];
-const { catalog: items } = loadItems();
+const { catalog: items }: { catalog: any[] } = loadItems();
 
 module.exports = () => {
 	router.get('/', (req, res) => {
-		res.json({ releases, collections });
+		res.json({ items, collections });
 	});
 
 	router.get('/search', (req, res) => {
@@ -73,9 +73,7 @@ module.exports = () => {
 			return res.json({ results: [] });
 		}
 		const results = items.filter((result: any) => {
-			const cats = result.category.filter(
-				(cat: any) => cat.indexOf(search.toLowerCase()) > -1
-			);
+			const cats = result.category.filter((cat: any) => cat.indexOf(search.toLowerCase()) > -1);
 			return (
 				result.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
 				cats.length > 0 ||
@@ -85,6 +83,20 @@ module.exports = () => {
 			);
 		});
 		res.json({ results: results.slice(0, 5), search });
+	});
+
+	router.get('/info', (req, res) => {
+		const { param } = req.query;
+		const queryItems = (req.query.items as string).split(',');
+		let prices: number[] = [];
+		queryItems.map(async (item) => {
+			let it = items.find((it) => it.id == item);
+			if (it) {
+				console.log(it.id, it.price);
+				prices.push(it.price);
+			}
+		});
+		res.json(prices);
 	});
 
 	return router;

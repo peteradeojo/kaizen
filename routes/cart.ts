@@ -7,5 +7,11 @@ module.exports = () => {
 		res.render('cart');
 	});
 
+	router.post('/', async (req, res) => {
+		console.log(req.body);
+		// x: Log cart additions and update statistics
+		res.json({ data: req.body, ok: true });
+	});
+
 	return router;
 };

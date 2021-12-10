@@ -20,12 +20,14 @@ block content
 				.product-details.container
 					h2= product.name
 					form(action="" method="POST")#cart-form.functionality.py-2 
+						input(type="hidden" name="item" value=product.id)
+						input(type="hidden" name="name" value=product.name)
 						.colors.py-1
 							p(style='font-size:1.4em;font-weight: bold') Colors
 							.d-flex.col-sm-10
 								each color in product.colors
 									label.color
-										input(type="radio" name="color" value=color)
+										input(type="radio" name="color" value=color required)
 										| #{color.toUpperCase()}
 
 						.sizes.py-1
@@ -33,7 +35,7 @@ block content
 							.d-flex.flex-wrap.col-sm-10
 								each size in product.sizes
 									label.size
-										input(type="radio" name="size" value=size[1])
+										input(type="radio" name="size" value=size[1] required)
 										| #{size[0].toUpperCase()}
 
 						.d-flex.py-3.justify-between

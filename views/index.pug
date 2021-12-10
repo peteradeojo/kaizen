@@ -32,19 +32,8 @@ block content
 
 		h4.mt-4 Latest Wears
 		.wears 
-			a(href="/store/product/1").wear 
-				img(src="/compressed/img_8772-min-removebg-preview.png" alt="")
-				.info
-					.title Effervesence
-			a(href="/store/product/2").wear 
-				img(src="/compressed/img_8846-min-removebg-preview.png" alt="")
-				.info
-					.title Green
-			.wear 
-				img(src="/compressed/img_8711-min-removebg-preview.png" alt="")
-				.info
-					.title Midnight
-			.wear 
-				img(src="/compressed/img_8760-min-removebg-preview.png" alt="")
-				.info
-					.title Byw
+			each late in latest
+				a(href=late.link).wear 
+					img(src=late.images[0] alt="")
+					.info
+						.title=late.name

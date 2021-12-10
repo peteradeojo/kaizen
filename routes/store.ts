@@ -1,6 +1,4 @@
 import express from 'express';
-import { readFileSync, readFile } from 'fs';
-import path from 'path';
 
 const router = express.Router();
 

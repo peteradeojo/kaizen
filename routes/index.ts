@@ -38,7 +38,7 @@ const collections: Collection[] = [
 module.exports = (app: Express) => {
 	const { catalog: items }: { catalog: any[] } = loadItems();
 	router.get('/', (req, res) => {
-		res.render('index', { releases: items.slice(0, 3) });
+		res.render('index', { releases: items.slice(0, 3), latest: items.slice(-5) });
 	});
 
 	return router;
