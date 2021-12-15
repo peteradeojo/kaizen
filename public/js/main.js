@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			.addEventListener('keyup', async (e) => {
 				const that = e.target;
 				// @ts-ignore
-				if (that.value.length >= 3) {
+				if (that.value.length >= 2) {
 					// @ts-ignore
 					renderSearches(await performSearch(that.value));
 				} else {

@@ -1,73 +1,18 @@
 import express from 'express';
+import mongoose from 'mongoose';
 const debug = require('debug')('app:api-route');
 
 const router = express.Router();
-
-const { loadItems } = require('../midware/functions');
-
-interface Release {
-	id: string | number;
-	img: string;
-	title: string;
-	info: string;
-	name: string;
-}
-interface Collection {
-	id: string | number;
-	title: string;
-	link?: string;
-	img: string;
-	story?: string;
-}
-
-const releases: Release[] = [
-	{
-		id: 1,
-		img: '/compressed/img_8620.jpg',
-		title: 'Changes',
-		info: '\u20a65,200',
-		name: 'change-t-shirt',
-	},
-	{
-		id: 2,
-		img: '/compressed/IMG_2673ret-min.jpg',
-		title: 'Home',
-		info: '\u20a63,600',
-		name: 'change-t-shirt',
-	},
-];
-
-const collections: Collection[] = [
-	{
-		id: 1,
-		title: 'Pilot',
-		img: 'pilot-bg.png',
-		story:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod illo blanditiis recusandae suscipit soluta placeat ullam consectetur dicta officiis repellat, cupiditate, eveniet laborum quos ratione itaque fuga aliquam, autem atque?',
-	},
-	{
-		id: 2,
-		title: 'Pilot',
-		img: 'pilot-bg.png',
-		story:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod illo blanditiis recusandae suscipit soluta placeat ullam consectetur dicta officiis repellat, cupiditate, eveniet laborum quos ratione itaque fuga aliquam, autem atque?',
-	},
-	{
-		id: 3,
-		title: 'Pilot',
-		img: 'pilot-bg.png',
-		story:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod illo blanditiis recusandae suscipit soluta placeat ullam consectetur dicta officiis repellat, cupiditate, eveniet laborum quos ratione itaque fuga aliquam, autem atque?',
-	},
-];
-const { catalog: items }: { catalog: any[] } = loadItems();
+import Products from '../models/Catalog';
 
 module.exports = () => {
-	router.get('/', (req, res) => {
-		res.json({ items, collections });
+	router.get('/', async (req, res) => {
+		const items = await Products.find();
+		res.json({ items });
 	});
 
-	router.get('/search', (req, res) => {
+	router.get('/search', async (req, res) => {
+		const items = await Products.find();
 		const search = req.query.search as string;
 		if (search.length < 1) {
 			return res.json({ results: [] });
@@ -77,22 +22,25 @@ module.exports = () => {
 			return (
 				result.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
 				cats.length > 0 ||
-				(result.collection
-					? result.collection.toLowerCase().indexOf(search.toLowerCase()) > -1
+				(result.collectionName !== undefined
+					? result.collectionName.toLowerCase().indexOf(search.toLowerCase()) > -1
 					: false)
 			);
 		});
-		res.json({ results: results.slice(0, 5), search });
+		res.json({ results: results.slice(0, 10), search });
 	});
 
-	router.get('/info', (req, res) => {
+	router.get('/info', async (req, res) => {
+		const items = await Products.find();
 		const { param } = req.query;
 		const queryItems = (req.query.items as string).split(',');
 		let prices: number[] = [];
 		queryItems.map(async (item) => {
 			let it = items.find((it) => it.id == item);
 			if (it) {
+				// @ts-ignore
 				console.log(it.id, it.price);
+				// @ts-ignore
 				prices.push(it.price);
 			}
 		});

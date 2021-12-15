@@ -1,10 +1,10 @@
 import express from 'express';
+// import from 'mongoose';
+import { Mongoose } from 'mongoose';
 
 const router = express.Router();
+import Products from '../models/Catalog';
 
-// const categories = ['shirts', 'tops'];
-
-const { loadItems } = require('../midware/functions');
 import Category from '../models/categories';
 
 module.exports = () => {
@@ -19,10 +19,11 @@ module.exports = () => {
 		res.json(req.query);
 	});
 
-	router.get('/product/:id', (req, res, next) => {
+	router.get('/product/:id', async (req, res, next) => {
 		const { id } = req.params;
-		const { catalog: items }: { catalog: any[] } = loadItems();
-		const item = items.find((item) => item.id == id);
+		const item = await Products.findOne({ idValue: id });
+		// const item = items.find((item: any) => item.id == id);
+		// console.log(item);
 		if (!item) {
 			return next();
 		}
@@ -32,16 +33,12 @@ module.exports = () => {
 	router.get('/:term', async (req, res) => {
 		const { term } = req.params;
 		try {
-			const { catalog: items }: { catalog: any[] } = loadItems();
-			const resData = items.filter(
-				(item: { name: string; category: string[] }) => {
-					if (
-						item.name.toLowerCase().includes(term.toLowerCase()) ||
-						item.category.includes(term)
-					)
-						return true;
-				}
-			);
+			const items = await Products.find();
+			// @ts-ignore
+			const resData = items.filter((item: { name: string; category: string[] }) => {
+				if (item.name.toLowerCase().includes(term.toLowerCase()) || item.category.includes(term))
+					return true;
+			});
 			res.json(resData);
 		} catch (err) {
 			console.log(err);

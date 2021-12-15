@@ -1,45 +1,13 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
 
 const router = express.Router();
-
-const { loadItems } = require('../midware/functions');
-interface Collection {
-	id: string | number;
-	title: string;
-	link?: string;
-	img: string;
-	story?: string;
-}
-
-const collections: Collection[] = [
-	{
-		id: 1,
-		title: 'Pilot',
-		img: 'pilot-bg.png',
-		story:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod illo blanditiis recusandae suscipit soluta placeat ullam consectetur dicta officiis repellat, cupiditate, eveniet laborum quos ratione itaque fuga aliquam, autem atque?',
-	},
-	{
-		id: 2,
-		title: 'Pilot',
-		img: 'pilot-bg.png',
-		story:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod illo blanditiis recusandae suscipit soluta placeat ullam consectetur dicta officiis repellat, cupiditate, eveniet laborum quos ratione itaque fuga aliquam, autem atque?',
-	},
-	{
-		id: 3,
-		title: 'Pilot',
-		img: 'pilot-bg.png',
-		story:
-			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod illo blanditiis recusandae suscipit soluta placeat ullam consectetur dicta officiis repellat, cupiditate, eveniet laborum quos ratione itaque fuga aliquam, autem atque?',
-	},
-];
+import Products from '../models/Catalog';
 
 module.exports = (app: Express) => {
-	const { catalog: items }: { catalog: any[] } = loadItems();
-	router.get('/', (req, res) => {
+	router.get('/', async (req, res) => {
+		const items = await Products.find();
 		res.render('index', { releases: items.slice(0, 3), latest: items.slice(-5) });
 	});
-
 	return router;
 };
