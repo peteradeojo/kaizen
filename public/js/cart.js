@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				let block = document.createElement('div');
 				block.classList.add('cart');
 				block.setAttribute('item-id', `${index}`);
-				block.innerHTML = `<p class='title'>${item.name}</p class='f-2'>
+				block.innerHTML = `<p class='title '>${item.name}</p>
 					<p class='color'>Color: ${item.color}</p>
 					<p class='size'>Size: ${item.size.toUpperCase()}</p>
 					<p class='qty'>Quantity: <button>&minus;</button><span>${
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		return localStorage.setItem(CART_STORAGE, JSON.stringify(cartData));
 	};
 
-	const configureCartItems = (/** @type number[] */ prices) => {
+	const configureCartItems = (/** @type any[] */ info) => {
 		const carts = document.querySelectorAll('.cart');
 		carts.forEach(async (cartBox, index) => {
 			const plusButton = cartBox.querySelectorAll('button')[1];
@@ -90,10 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			plusButton.addEventListener('click', () => updateCartItemQuantity(index, 1, cartBox));
 
 			minusButton.addEventListener('click', () => updateCartItemQuantity(index, -1, cartBox));
-			if (prices) {
-				// @ts-ignore
-				cartBox.querySelector('.amount span').innerHTML = `${prices[index] * qtyDisplay.innerHTML}`;
-				cartBox.querySelector('.amount span').setAttribute('data-price', `${prices[index]}`);
+			if (info) {
+				cartBox.querySelector('.amount span').innerHTML = `${
+					// @ts-ignore
+					info[index].price * qtyDisplay.innerHTML
+				}`;
+				cartBox.querySelector('.amount span').setAttribute('data-price', `${info[index].price}`);
 			}
 		});
 	};
@@ -102,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const list = data.map((it) => it.item);
 		// console.log(list);
 		try {
-			const req = await fetch(`/api/info?param=price&items=${list.join(',')}`);
+			const req = await fetch(`/api/info?param=price,link&items=${list.join(',')}`);
 			const res = await req.json();
 			// console.log(res);
 			return res;
@@ -144,8 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	document.querySelector('#cart-list')
 		? loadCart().then(async (data) => {
-				const prices = await fetchItemPrice(data);
-				configureCartItems(prices);
+				const result = await fetchItemPrice(data);
+				configureCartItems(result);
 		  })
 		: null;
 });

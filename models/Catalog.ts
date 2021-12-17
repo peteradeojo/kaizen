@@ -23,6 +23,7 @@ const productSchema = new Schema({
 	colors: [String],
 	sizes: [[String]],
 	collectionName: String,
+	link: String,
 });
 
 const Product = mongoose.model('product', productSchema);

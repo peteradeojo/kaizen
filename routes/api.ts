@@ -22,7 +22,7 @@ module.exports = () => {
 			return (
 				result.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
 				cats.length > 0 ||
-				(result.collectionName !== undefined
+				(result.collectionName
 					? result.collectionName.toLowerCase().indexOf(search.toLowerCase()) > -1
 					: false)
 			);
@@ -33,18 +33,25 @@ module.exports = () => {
 	router.get('/info', async (req, res) => {
 		const items = await Products.find();
 		const { param } = req.query;
+		const params = (param as string).split(',');
+		// console.log(params);
 		const queryItems = (req.query.items as string).split(',');
-		let prices: number[] = [];
-		queryItems.map(async (item) => {
+		let result: any[] = [];
+		queryItems.map((item) => {
 			let it = items.find((it) => it.id == item);
 			if (it) {
 				// @ts-ignore
-				console.log(it.id, it.price);
+				// console.log(it[params[0]]);
+				let obj = {};
+				params.forEach((prop) => {
+					// @ts-ignore
+					obj[prop] = it[prop];
+				});
 				// @ts-ignore
-				prices.push(it.price);
+				result.push(obj);
 			}
 		});
-		res.json(prices);
+		res.json(result);
 	});
 
 	return router;
