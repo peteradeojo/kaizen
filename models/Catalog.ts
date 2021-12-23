@@ -24,6 +24,10 @@ const productSchema = new Schema({
 	sizes: [[String]],
 	collectionName: String,
 	link: String,
+	dateAdded: {
+		type: Date,
+		required: true,
+	},
 });
 
 const Product = mongoose.model('product', productSchema);

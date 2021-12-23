@@ -1,8 +1,8 @@
-// @ts-disable
 import express, { Express } from 'express';
 import mongoose from 'mongoose';
 import session from 'express-session';
 import path from 'path';
+import cors from 'cors';
 const debug = require('debug')('app:setup');
 
 module.exports = (app: Express) => {
@@ -11,6 +11,8 @@ module.exports = (app: Express) => {
 		app.use(require('morgan')('dev'));
 		require('dotenv').config();
 	}
+
+	app.use(cors());
 
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: false }));
@@ -36,4 +38,3 @@ module.exports = (app: Express) => {
 		}
 	})();
 };
-// @ts-enable
