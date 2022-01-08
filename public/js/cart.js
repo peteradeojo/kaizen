@@ -42,13 +42,17 @@ document.addEventListener('DOMContentLoaded', () => {
 				let block = document.createElement('div');
 				block.classList.add('cart');
 				block.setAttribute('item-id', `${index}`);
-				block.innerHTML = `<p class='title '>${item.name}</p>
+				block.innerHTML = `<div>
+					<p class='title '>${item.name}</p>
 					<p class='color'>Color: ${item.color}</p>
 					<p class='size'>Size: ${item.size.toUpperCase()}</p>
+				</div>
+				<div>
 					<p class='qty'>Quantity: <button>&minus;</button><span>${
 						item.quantity
 					}</span> <button>&plus;</button></p>
 					<p class='amount'>Price: \u20a6 <span></span></p>
+				</div>
 				`;
 				CART_LIST.appendChild(block);
 			});

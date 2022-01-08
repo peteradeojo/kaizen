@@ -1,0 +1,242 @@
+@use 'sass:math';
+
+$darkThemeColor: #000;
+:root {
+	--background: #fff;
+}
+[data-theme='dark'] {
+	--background: #333;
+	color: #fff;
+	.bg-white {
+		background: var(--background);
+	}
+}
+
+[data-theme='dark'] *:is(.container) {
+	background: var(--background);
+}
+[data-theme='dark'] *:is(a, p, i) {
+	color: #fff;
+}
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: var(--background);
+	font: 10px/1.5 'Montserrat', Arial, Helvetica, sans-serif;
+}
+a {
+	color: #000;
+}
+@for $i from 1 through 6 {
+	@if ($i < 4) {
+		h#{$i} {
+			font-size: 0.75em * (7-$i);
+		}
+	} @else {
+		h#{$i} {
+			font-size: 2em;
+		}
+	}
+	.f-#{$i} {
+		font-size: 1em * $i;
+	}
+	.h#{$i} {
+		font-size: 1em * (7-$i);
+	}
+}
+
+h1.theme,
+h2.theme,
+h3.theme,
+h4.theme,
+h5.theme,
+h6.theme {
+	font-family: 'Yuji Boku', serif;
+}
+
+// Search bar
+.search-bar {
+	display: block;
+	form {
+		display: flex;
+		align-content: center;
+		align-items: stretch;
+		justify-content: center;
+		position: relative;
+		input {
+			width: 100%;
+			border: 1px solid #ccc;
+			padding: 0 12px;
+		}
+		button {
+			border: none;
+			padding: 8px 12px;
+			background-color: red;
+			color: #fff;
+		}
+		ul {
+			position: absolute;
+			top: 100%;
+			width: 100%;
+			list-style: none;
+			li a {
+				display: block;
+				padding: 4px 8px;
+				background: #fff;
+				color: #000;
+				&:hover {
+					background: lightgray;
+				}
+			}
+		}
+	}
+}
+
+.container {
+	width: 100%;
+	padding: 16px;
+	margin: auto;
+}
+.rounded {
+	border-radius: 6px;
+}
+.rounded-lg {
+	border-radius: 12px;
+}
+.bg-white {
+	background-color: #fff;
+}
+.bg-black {
+	background-color: #000;
+}
+.img-fluid {
+	width: 100%;
+}
+.center {
+	text-align: center;
+}
+// Spacings
+@for $i from 0 through 5 {
+	.m-#{$i} {
+		margin: 0.7em * $i;
+	}
+	.my-#{$i} {
+		margin: 0.7em * $i 0;
+	}
+	.mx-#{$i} {
+		margin: 0 0.7em * $i;
+	}
+	.mt-#{$i} {
+		margin-top: 0.7em * $i;
+	}
+	.mb-#{$i} {
+		margin-bottom: 0.7em * $i;
+	}
+	.ms-#{$i} {
+		margin-left: 0.7em * $i;
+	}
+	.me-#{$i} {
+		margin-right: 0.7em * $i;
+	}
+	.p-#{$i} {
+		padding: 0.7em * $i;
+	}
+	.py-#{$i} {
+		padding: 0.7em * $i 0;
+	}
+	.px-#{$i} {
+		padding: 0 0.7em * $i;
+	}
+	.pt-#{$i} {
+		padding-top: 0.7em * $i;
+	}
+	.pb-#{$i} {
+		padding-bottom: 0.7em * $i;
+	}
+	.ps-#{$i} {
+		padding-left: 0.7em * $i;
+	}
+	.pe-#{$i} {
+		margin-right: 0.7em * $i;
+	}
+}
+.w-25 {
+	width: 25%;
+}
+.d-none {
+	display: none;
+}
+.d-block {
+	display: block;
+}
+.d-flex {
+	display: flex;
+	flex-direction: row;
+	&.column {
+		flex-direction: column;
+	}
+}
+.justify-center {
+	justify-content: center;
+}
+.justify-between {
+	justify-content: space-between;
+}
+.justify-evenly {
+	justify-content: space-evenly;
+}
+.align-center {
+	align-items: center;
+	align-content: center;
+}
+.row {
+	display: flex;
+	align-items: center;
+	align-content: center;
+	flex-wrap: wrap;
+}
+@for $i from 1 through 12 {
+	.col-#{$i} {
+		width: math.div(100%, math.div(12, $i));
+	}
+}
+@for $i from 1 through 12 {
+	.col-sm-#{$i} {
+		width: math.div(100%, math.div(12, $i));
+	}
+}
+@media (max-width: 425px) {
+	[class*='col-sm'] {
+		width: 100%;
+	}
+}
+@media (min-width: 768px) {
+	@for $i from 1 through 12 {
+		.col-md-#{$i} {
+			width: math.div(100%, math.div(12, $i));
+		}
+	}
+}
+
+@media (min-width: 425px) {
+	.d-sm-block {
+		display: block;
+	}
+}
+@media (min-width: 768px) {
+	.d-md-block {
+		display: block;
+	}
+}
+.scroll-x {
+	overflow-x: auto;
+}
+.border {
+	border: 1px solid #fff;
+}
