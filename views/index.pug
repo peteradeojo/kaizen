@@ -1,5 +1,26 @@
-extends layout
+extends layout/main
 
-block content 
-  .container 
-    h1 KAIZEN
+block css-links 
+	link(rel="stylesheet" href="/css/index.css")
+
+block content
+	.container.p-0
+		.showcase.mt-5
+			.img-display
+				img(src=RES_HOST+"/compressed/IMG_2753-min.JPG" alt='').d-none.d-sm-block
+				img(src=RES_HOST+"/compressed/IMG_2677ret-min.jpg" alt='').d-none.d-md-block
+				img(src=RES_HOST+"/compressed/IMG_2672retouched-min.jpg" alt='').d-none.d-md-block
+				img(src=RES_HOST+"/compressed/IMG_2738ret222-min.jpg" alt='')
+			.text-display
+				.center
+					h1.d-none.d-md-block カイゼンへようこそ
+					h1.theme.d-sm-none /&dot;kaizen&dot;/ - (n)
+					p.f-2 Japanese: “kai-” means “change”<br> and “-zen” means “good.”
+
+	//- .container#
+	section#catalog
+		.container 
+
+
+block scripts 
+	script(src="/js/index.js")

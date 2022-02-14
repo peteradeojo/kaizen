@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+	head
+		meta(charset="UTF-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+		link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css' integrity='sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==' crossorigin='anonymous' referrerpolicy='no-referrer')
+		link(href='https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:ital,wght@1,300;1,400;1,700&family=Montserrat:wght@100;200;300;400;500;700&family=Shalimar&family=Yuji+Boku&display=swap' rel='stylesheet')
+		link(rel="stylesheet" href="/css/global.css")
+		//- link(rel="stylesheet" href="/css/nav.css")
+		block css-links
+		title= title || 'KAIZEN'
+		script.
+			const RES_HOST='#{RES_HOST}'
+	body 
+		main 
+			.container.p-0
+				.bg-white.p-2.d-flex.align-center.justify-between
+					.col-sm-6
+						h1.theme KAIZEN
+					.col-sm-6
+						include ../components/nav
+
+			block content
+
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js' integrity='sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw==' crossorigin='anonymous' referrerpolicy='no-referrer')  
+		script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js' integrity='sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==' crossorigin='anonymous' referrerpolicy='no-referrer')
+		script(src="/js/main.js") 
+		block scripts

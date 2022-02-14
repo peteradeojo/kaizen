@@ -1,8 +1,10 @@
 @use 'sass:math';
 
+@import "./nav.scss";
+
 $darkThemeColor: #000;
 :root {
-	--background: #fff;
+	--background: ##000;
 }
 [data-theme='dark'] {
 	--background: #333;
@@ -228,10 +230,16 @@ h6.theme {
 	.d-sm-block {
 		display: block;
 	}
+	.d-sm-none {
+		display: none;
+	}
 }
 @media (min-width: 768px) {
 	.d-md-block {
 		display: block;
+	}
+	.d-md-none {
+		display: none;
 	}
 }
 .scroll-x {
